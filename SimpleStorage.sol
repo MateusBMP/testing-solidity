@@ -1,12 +1,30 @@
-pragma solidity >=0.4.0 <0.7.0;
-contract SimpleStorage {
-	uint storedData;
+pragma solidity ^0.5.0;
 
-	function set(uint x) public {
-		storedData = x;
-	}
+contract simplestorage {
+   uint public storedData;
 
-	function get() public view returns (uint) {
-		return storedData;
-	}
+   event DataStored (
+      uint data
+   );
+
+   constructor(uint initVal) public {
+      storedData = initVal;
+   }
+
+   function set(uint x) public returns (uint value) {
+      require(x < 100, "Value can not be over 100");
+      storedData = x;
+
+      emit DataStored(x);
+
+      return storedData;
+   }
+
+   function get() public view returns (uint retVal) {
+      return storedData;
+   }
+
+   function query() public view returns (uint retVal) {
+      return storedData;
+   }
 }
